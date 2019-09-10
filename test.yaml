@@ -1,0 +1,64 @@
+version: "1.0"
+stages:
+  - "clone"
+  - "build"
+  - "integration"
+  - "push"
+steps:
+
+  build_step:
+    type: build
+    dockerfile: Dockerfile
+    image-name: codefreshdemo/lets-chat
+    tag: ${{CF_BRANCH}}
+
+    main_clone:
+      type: "git-clone"
+      description: "Cloning main repository..."
+      repo: "noamt-codefresh/test"
+      revision: "${{CF_BRANCH}}"
+      stage: "clone"
+
+    install:
+      title: installing dependencies
+      type: freestyle
+      image: 'node:12.10.0-alpine'
+      commands:
+        - npm i
+
+  unit_test:
+    title: running tests
+    type: freestyle
+    image: 'node:12.10.0-alpine'
+    commands:
+      - npm i
+
+    parallel_push:
+      type: "parallel"
+      steps:
+        annotate_build:
+          title: "Annotating Build"
+          image: "${{build}}"
+          working_directory: "IMAGE_WORK_DIR"
+          commands:
+            - "echo Annotating Build..."
+          on_success:
+            metadata:
+              set:
+                - ${{build.imageId}}:
+                    - CF_QUALITY: true
+          on_error:
+            metadata:
+              set:
+                - ${{build.imageId}}:
+                    - CF_QUALITY: false
+        push:
+          title: "Pushing image to cfcr"
+          type: "push"
+          image_name: "noamt-codefresh/test"
+          registry: "cfcr"
+          candidate: "${{build}}"
+          tags:
+            - "${{CF_BRANCH_TAG_NORMALIZED}}"
+            - "${{CF_REVISION}}"
+      stage: "push"
