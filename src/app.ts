@@ -3,7 +3,6 @@ import {plugins} from "restify";
 import bodyParser = plugins.bodyParser;
 import queryParser = plugins.queryParser;
 
-
 const server = Restify.createServer();
 
 /*server.use(
