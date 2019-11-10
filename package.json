@@ -1,9 +1,9 @@
 {
   "name": "repo-test-4-cf",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "dependencies": {
+    "minimatch": "^3.0.4",
     "restify": "^8.3.2",
     "restify-cors-middleware": "^1.1.1"
   },
@@ -20,5 +20,17 @@
     "test": "mocha"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/noamt-codefresh/test.git"
+  },
+  "bugs": {
+    "url": "https://github.com/noamt-codefresh/test/issues"
+  },
+  "homepage": "https://github.com/noamt-codefresh/test#readme",
+  "description": ""
 }
