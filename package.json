@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
+    "@types/micromatch": "^3.1.0",
+    "@types/minimatch": "^3.0.3",
+    "micromatch": "^4.0.2",
     "minimatch": "^3.0.4",
-    "restify": "^8.3.2",
+    "restify": "^8.4.0",
     "restify-cors-middleware": "^1.1.1"
   },
   "devDependencies": {

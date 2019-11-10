@@ -2,6 +2,16 @@ import Restify = require("restify");
 import {plugins} from "restify";
 import bodyParser = plugins.bodyParser;
 import queryParser = plugins.queryParser;
+import micromatch = require("micromatch");
+import minimatch = require("minimatch");
+
+const patterns = micromatch.braces('{config/**/{test-,test1}*.json,src/**,/lib/**}');
+const result = micromatch(['src/app.ts', 'config/dir1/test-glob.json', 'config/dir2/some-other-file.json'], patterns);
+const miniMatchResult = minimatch('src/app.ts', '{/config/**/{test-,test1}*.json,src/**,/lib/**}');
+
+const defectPatterns = micromatch.braces('{services/go/{backup-*,common,org-{engine,worker,api},vendor},services/{mon-*,org-{ui,gateway}}}/**');
+const defectResult = micromatch(['services/go/org-api/cmd/robot/main.go', 'services/go/saas-api/pkg/statuspage/statuspage.go'], defectPatterns);
+
 
 const server = Restify.createServer();
 
