@@ -5,13 +5,22 @@ import queryParser = plugins.queryParser;
 import micromatch = require("micromatch");
 import minimatch = require("minimatch");
 
-const patterns = micromatch.braces('{config/**/{test-,test1}*.json,src/**,/lib/**}');
+/*const patterns = micromatch.braces('{config/!**!/{test-,test1}*.json,src/!**,/lib/!**}');
 const result = micromatch(['src/app.ts', 'config/dir1/test-glob.json', 'config/dir2/some-other-file.json'], patterns);
-const miniMatchResult = minimatch('src/app.ts', '{/config/**/{test-,test1}*.json,src/**,/lib/**}');
+const miniMatchResult = minimatch('src/app.ts', '{/config/!**!/{test-,test1}*.json,src/!**,/lib/!**}');
 
-const defectPatterns = micromatch.braces('{services/go/{backup-*,common,org-{engine,worker,api},vendor},services/{mon-*,org-{ui,gateway}}}/**');
-const defectResult = micromatch(['services/go/org-api/cmd/robot/main.go', 'services/go/saas-api/pkg/statuspage/statuspage.go'], defectPatterns);
+const defectPatterns = micromatch.braces('{services/go/{backup-*,common,org-{engine,worker,api},vendor},services/{mon-*,org-{ui,gateway}}}/!**');
+const defectResult = micromatch(['services/go/org-api/cmd/robot/main.go', 'services/go/saas-api/pkg/statuspage/statuspage.go'], defectPatterns);*/
 
+const fileList = ['src/app.ts', 'config/dir1/test-glob.json', 'config/dir2/some-other-file.json'];
+//const pattern = '{config/**/{test-*,job-*}.json,src/**}';
+const pattern = '{config/**,src/**}';
+const patterns1 = micromatch.braces(pattern);
+const patterns2 = ['config/**','apple/**'];
+const resul1t = micromatch(fileList, patterns1);
+
+
+const minimatchResult = fileList.filter(minimatch.filter(pattern));
 
 const server = Restify.createServer();
 
