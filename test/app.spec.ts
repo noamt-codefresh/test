@@ -5,7 +5,7 @@ describe("Execution Mocha Test", () => {
     describe("execution mocha test", () => {
 
         before(() => {
-            console.log("before test")
+            console.log("before test!")
         });
 
         it("should execute mocha test", () => {
