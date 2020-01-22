@@ -8,7 +8,7 @@ console.log(`starting log generator, stringSizeLimit: ${stringSizeLimit}, logsWr
 
 for (let i = 0; i < logsWritingLimit; i++) {
     const stringSize = Math.ceil(Math.random() * Math.floor(stringSizeLimit));
-    const longString = new Array(stringSize).fill(`${i}/${logsWritingLimit}`).join("");
+    const longString = new Array(stringSize).fill(`${i}/${logsWritingLimit}\n`).join("");
     console.log(`${i} string byte size: ${Buffer.byteLength(longString)} ${longString}\n`);
 }
 
